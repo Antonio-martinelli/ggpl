@@ -26,7 +26,7 @@ def buildFrame(beamDimensions, pillarDimensions, pillarDistances, interstoryHeig
     return frameModel
 
 def buildBeams(file_name):
-
+	"""This function returns the beams that connect the frames by reading the input file"""
 	with open(file_name, 'rb') as file:
 		reader = csv.reader(file, delimiter=';')
 		beamlengthX = []
@@ -65,7 +65,8 @@ def buildBeams(file_name):
 
  
 def ggpl_bone_structure(file_name):
-
+	"""This function takes in input a file_name string that is the path of a file that contains 3D coordinates and parameters for a planar frame
+	and returns the VIEW of the STRUCT required."""
 	with open(file_name, 'rb') as file:
 		reader = csv.reader(file, delimiter = ';')
 		finalModel = []
