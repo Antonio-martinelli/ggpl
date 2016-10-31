@@ -2,6 +2,12 @@ from pyplasm import *
 import math
 
 def generate_steps(stepNumber, tread, riser, stepWidth):
+    """This function, given a stepNumber, a tread, a riser and a stepWidth, returns a list of steps.
+    @param stepNumber: number of the steps
+    @param tread: number that represents the step's depth
+    @param riser: number that represent the height of a single step
+    @param stepWidth: the width of the ramp
+    @return steps: a list that contains all the steps."""
     step2d = MKPOL([[[tread, 0],[tread, riser*2], [tread*2, riser*2], [tread*2, riser]], [[1,2,3,4]], None])
     steps = []
     firstStep2d = CUBOID([stepWidth,tread])
@@ -13,6 +19,13 @@ def generate_steps(stepNumber, tread, riser, stepWidth):
     return steps
 
 def ggpl_u_shaped_stairs(dx, dy, dz):
+    """This function, given three values representing the three dimensions,
+    returns an HPC model of an environment containing u shaped stairs.
+    @param dx: desired dimension of the structure, X-Axis
+    @param dy: desired dimension of the structure, Y-Axis
+    @param dz: desired dimension of the structure, Z-Axis
+    @return result: the generated HPC model containg the stairs and three walls useful to support it
+    """
     wallThickness = 0.3
     riser = 0.2
     stairsHeight = dz / 2.0
