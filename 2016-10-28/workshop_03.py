@@ -24,9 +24,8 @@ def ggpl_u_shaped_stairs(dx, dy, dz):
     @param dx: desired dimension of the structure, X-Axis
     @param dy: desired dimension of the structure, Y-Axis
     @param dz: desired dimension of the structure, Z-Axis
-    @return result: the generated HPC model containg the stairs and three walls useful to support it
-    """
-    wallThickness = 0.3
+    @return result: the generated HPC model containg the stairs and three walls useful to support it"""
+    wallThickness = 0.2
     riser = 0.2
     stairsHeight = dz / 2.0
     stepNumbers = math.ceil(stairsHeight / riser)
@@ -57,4 +56,4 @@ def ggpl_u_shaped_stairs(dx, dy, dz):
     box = SKEL_1(BOX([1,2,3])(CUBOID([dx, dy, dz])))
     return STRUCT([result, box]) 
 
-VIEW(ggpl_u_shaped_stairs(3.0,3.4,4.0))
+VIEW(ggpl_u_shaped_stairs(3.0,5.0,5.2))
