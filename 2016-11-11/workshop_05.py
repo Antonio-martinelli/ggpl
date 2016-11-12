@@ -89,7 +89,7 @@ def ggpl_teacher_desk(dx, dy, dz):
 	desk = desk + firstDeskSupports + secondDeskSupports + drawers
 	VIEW(COLOR(BLACK)(STRUCT(desk)))
  
-def ggpl_chair(dx,dy,dz):
+def ggpl_teacher_chair(dx,dy,dz):
 	"""This function, given the three dimensions dx, dy and dz, 
 	returns the VIEW of a simple wooden chair."""
 	chair = []	
@@ -141,4 +141,4 @@ def ggpl_chair(dx,dy,dz):
 
 ggpl_children_table(4,4,1.25)
 ggpl_teacher_desk(1.5, 1, 1.25)
-ggpl_chair(.75,.75,1.25)
+ggpl_teacher_chair(.75,.75,1.25)
