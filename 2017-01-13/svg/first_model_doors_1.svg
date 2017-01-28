@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3414"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="750"
+   height="453.75"
+   viewBox="0 0 750 453.75"
+   sodipodi:docname="porte.svg">
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="porte">
+    <g
+       inkscape:label="porte"
+       id="layer5"
+       transform="translate(1.5909842,2.5629309)">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99966395px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 516.34652,78.53082 0,46.46875"
+         id="path3985"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99966395px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 516.34652,288.03082 0,46.46875"
+         id="path3987"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99951953px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 105.25,204 91.91161,0"
+       id="path3981"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99918252px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 290.80302,204.02703 57.27029,0"
+       id="path3983"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
