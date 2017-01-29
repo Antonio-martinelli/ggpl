@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3414"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="750"
+   height="453.75"
+   viewBox="0 0 750 453.75"
+   sodipodi:docname="second_model_doors_2.svg">
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="muri_interni">
+    <g
+       style="display:inline"
+       inkscape:label="muri_esterni"
+       id="layer3"
+       transform="translate(-0.34519704,-0.24428727)" />
+    <g
+       inkscape:label="muri_interni"
+       id="layer1-1"
+       transform="translate(0.2562445,0.65364274)">
+      <g
+         transform="translate(-0.34519704,-0.24428727)"
+         id="layer3-9"
+         inkscape:label="muri_esterni"
+         style="display:inline" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 133.62553,333.58316 40.37606,0"
+       id="path3340"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.95998365px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 136.9902,172.55959 45.18273,0"
+       id="path3342"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

@@ -1,6 +1,7 @@
 from pyplasm import *
 from sympy import *
 import numpy as np
+from random import randint
 
 def list_to_coupled_list(startList):
 	"""This function, given a starting list, returns a list containing, for every element in the 
@@ -47,7 +48,7 @@ def plane_from_segment(angle, line):
 	d = np.dot(cp, p3)
 	return [a,b,c,d]
 
-def ggpl_generate_structure(segments, angle, roofHeight):
+def ggpl_generate_structure(segments, angle, roofHeight, texture):
 	"""This function takes in input a list of vertices, an angle and an height, 
 	and returns the VIEW of an HPC model of a roof."""
 	lines = list_to_coupled_list(segments)
@@ -68,7 +69,7 @@ def ggpl_generate_structure(segments, angle, roofHeight):
 
 	coupleLines = list_to_coupled_list(linesEquations)
 	roofPitch = []
-
+	texture = texture + str(randint(1,4)) +".jpg"
 	for couple in coupleLines:
 		firstBasePoint = [round(float((couple[0])[x].subs(z,0)),2),round(float((couple[0])[y].subs(z,0)),2),0]
 		secondBasePoint = [round(float((couple[1])[x].subs(z,0)),2),round(float((couple[1])[y].subs(z,0)),2),0]
@@ -76,10 +77,10 @@ def ggpl_generate_structure(segments, angle, roofHeight):
 		secondTopPoint = [round(float((couple[1])[x].subs(z,roofHeight)),2),round(float((couple[1])[y].subs(z,roofHeight)),2),roofHeight]
 		points = [firstBasePoint, secondBasePoint, secondTopPoint, firstTopPoint, firstBasePoint]
 		faces = [[1,2,3,4]]
-		roofPitch.append(TEXTURE("textures/roof.jpg")(MKPOL([points, faces, 1])))
+		roofPitch.append(TEXTURE(texture)(MKPOL([points, faces, 1])))
 
 	roofPitch = STRUCT(roofPitch)
 	roofBase = SOLIDIFY(POLYLINE(segments + [segments[0]]))
 	terrace = T([3])([roofHeight])(SOLIDIFY(POLYLINE(roofTop)))
 
-	return STRUCT([TEXTURE("textures/roof.jpg")(terrace), roofBase, roofPitch])
+	return STRUCT([TEXTURE(texture)(terrace), roofBase, roofPitch])

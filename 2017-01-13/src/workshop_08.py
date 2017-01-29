@@ -87,7 +87,7 @@ def create_holes(linesFileName, offset):
 	holeModels = STRUCT(holeModels)
 	return holeModels
 
-def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, floorNumber, totalNumberOfFloors):
+def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, floorNumber, totalNumberOfFloors, texture):
 	"""This function generates the HPC Model represent the floorNumber floor of the storey structure."""
 	wallOffset = 12
 
@@ -110,7 +110,6 @@ def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, fl
 	internalWalls = generate_2D_walls(lines[1])
 	internalWalls = OFFSET([wallOffset,wallOffset])(internalWalls)
 	internalWalls = PROD([internalWalls, Q(3/xfactor)])
-
 
 	#remove the space of the ladder from second to the last floor	
 	if(floorNumber != 0):
@@ -152,15 +151,14 @@ def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, fl
 	windows = T(3)(SIZE([3])(externalWalls)[0]/4.)(windows)
 	
 	externalWalls = DIFFERENCE([externalWalls, doors, windows])
-	internalWalls = DIFFERENCE([internalWalls, doors, windows])
-	externalWalls = TEXTURE("textures/exteriors.jpg")(externalWalls)
+	internalWalls = DIFFERENCE([internalWalls, externalWalls, doors, windows])
+	externalWalls = TEXTURE(texture)(externalWalls)
 	internalWalls = TEXTURE("textures/interiors.jpg")(internalWalls)
 	frame = STRUCT([externalWalls, internalWalls])
 
 	#insert the concrete doors
 	doorsConcreteList = build_doors_and_windows(lines[2], wallOffset, xfactor, "door", externalWalls, windowsFunction, doorsFunction)
 	doorsConcreteList = STRUCT(doorsConcreteList)
-
 	#insert the concrete windows
 	windowsConcreteList = build_doors_and_windows(lines[3], wallOffset, xfactor, "window", externalWalls, windowsFunction, doorsFunction)
 	windowsConcreteList = STRUCT(windowsConcreteList)
@@ -178,4 +176,5 @@ def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, fl
 	floor = (S([1,2,3])([xfactor,yfactor, xfactor])(floor))
 	floor = TEXTURE("textures/floor.jpg")(floor)
 	result = STRUCT([floor, frame])
+	VIEW(result)
 	return result

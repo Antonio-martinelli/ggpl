@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3414"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="750"
+   height="453.75"
+   viewBox="0 0 750 453.75"
+   sodipodi:docname="second_model_innerWalls_2.svg">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1288"
+     inkscape:window-height="684"
+     id="namedview7"
+     showgrid="false"
+     inkscape:zoom="2.0804408"
+     inkscape:cx="197.14596"
+     inkscape:cy="210.54802"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1-1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="muri_interni">
+    <g
+       style="display:inline"
+       inkscape:label="muri_esterni"
+       id="layer3"
+       transform="translate(-0.34519704,-0.24428727)" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 121.67817,173.00651 206.98884,0 0,160.76474 -207.32872,0"
+       id="path3341"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 233.49973,330.7123 0,-96.18693 -192.033985,0"
+       id="path3343"
+       inkscape:connector-curvature="0" />
+    <g
+       inkscape:label="muri_interni"
+       id="layer1-1"
+       transform="translate(0.2562445,0.65364274)">
+      <g
+         transform="translate(-0.34519704,-0.24428727)"
+         id="layer3-9"
+         inkscape:label="muri_esterni"
+         style="display:inline" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3403"
+         d="m 155.45091,172.32674 43.21872,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.78566521px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 215.56341,233.43137 -46.14407,0"
+         id="path3397"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
