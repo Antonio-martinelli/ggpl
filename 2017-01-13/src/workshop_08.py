@@ -176,5 +176,4 @@ def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, fl
 	floor = (S([1,2,3])([xfactor,yfactor, xfactor])(floor))
 	floor = TEXTURE("textures/floor.jpg")(floor)
 	result = STRUCT([floor, frame])
-	VIEW(result)
 	return result
