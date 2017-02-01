@@ -74,6 +74,72 @@ def generate_house(modelNumber, dx, dy, dz, rotation, transX, transY):
 	house = T([1,2,3])([transX, transY, 0.1])(house)
 	return house
 
+def generate_tennis_field(dx, dy, netHeight):
+	"""This function takes in input dimensions for the field and returns an HPC model of a tennis field."""
+	tennisField = CUBOID([dx,dy,0.2])
+	tennisField = TEXTURE(["textures/tennis_field.jpg"])(tennisField)
+
+	longSideNet = []
+	shortSideNet = []
+	pillarDimension = 0.2
+	pillar_1 = CUBOID([pillarDimension, pillarDimension, netHeight])
+	pillar_2 = T([1])(SIZE([1])(tennisField)[0] - pillarDimension)(pillar_1)
+	pillar_3 = T([2])(SIZE([2])(tennisField)[0] - pillarDimension)(pillar_2)
+	pillar_4 = T([2])(SIZE([2])(tennisField)[0] - pillarDimension)(pillar_1)
+	pillars = STRUCT([pillar_1, pillar_2, pillar_3, pillar_4])
+
+	fieldNet = []
+	fieldNetPillar_1 = CUBOID([0.1, 0.1, 1])
+	fieldNetPillar_1 = COLOR(BLACK)(fieldNetPillar_1)
+	fieldNetPillar_1 = T([1,2])([SIZE([1])(tennisField)[0]/2 - (0.1/2), 0.6])(fieldNetPillar_1)
+	fieldNet.append(fieldNetPillar_1)
+	fieldNetPillar_2 = T([2])(SIZE([2])(tennisField)[0] - 1.4)(fieldNetPillar_1)
+	fieldNet.append(fieldNetPillar_2)
+	netSupport = CUBOID([0.01, SIZE([2])(tennisField)[0] - 1.5, 0.1])
+	netSupport = T([1,2,3])([SIZE([1])(tennisField)[0]/2, 0.7, 0.9])(netSupport)
+	fieldNet.append(netSupport)
+
+	for i in range(2, 20):
+		fieldNetHorizontalLine = POLYLINE([[SIZE([1])(tennisField)[0]/2, 0.7, 0.05*i],[SIZE([1])(tennisField)[0]/2, SIZE([2])(tennisField)[0] - 0.8, 0.05*i]])
+		fieldNetHorizontalLine = COLOR(GRAY)(fieldNetHorizontalLine)
+		fieldNet.append(fieldNetHorizontalLine)
+	for i in range(1, 90):
+		fieldNetVerticalLine = POLYLINE([[SIZE([1])(tennisField)[0]/2, 0.7 + 0.05*i, 0],[SIZE([1])(tennisField)[0]/2, 0.7 + 0.05*i, 0.9]])
+		fieldNetVerticalLine = COLOR(GRAY)(fieldNetVerticalLine)
+		fieldNet.append(fieldNetVerticalLine)
+
+	for i in range(0,int((netHeight*10)/2)+1):
+		longSideHorizontalLine = POLYLINE([[0, 0, 0.2*i],[SIZE([1])(tennisField)[0], 0, 0.2*i]])
+		if (i>10):
+			shortSideHorizontalLine = POLYLINE([[0, 0, 0.2*i],[0, SIZE([2])(tennisField)[0], 0.2*i]])
+			shortSideNet.append(shortSideHorizontalLine)
+		else:
+			shortSideHorizontalLine_1 = POLYLINE([[0, 0, 0.2*i],[0, SIZE([2])(tennisField)[0] - 1.2, 0.2*i]])
+			shortSideHorizontalLine_2 = POLYLINE([[0, SIZE([2])(tennisField)[0] - .2, 0.2*i],[0, SIZE([2])(tennisField)[0], 0.2*i]])
+			shortSideNet.append(shortSideHorizontalLine_1)
+			shortSideNet.append(shortSideHorizontalLine_2)
+		longSideNet.append(longSideHorizontalLine)
+		
+
+	for i in range(0,int((SIZE([1])(tennisField)[0]*10)/2)):
+		longSideVerticalLine = POLYLINE([[0.2*i,0,0],[0.2*i, 0, netHeight]])
+		longSideNet.append(longSideVerticalLine)
+
+	for i in range(0,int((SIZE([2])(tennisField)[0]*10)/2)):
+		if (i > 24 and i < 29):
+			shortSideVerticalLine = POLYLINE([[0, 0.2*i, 2.2],[0, 0.2*i, netHeight]])
+		else:
+			shortSideVerticalLine = POLYLINE([[0, 0.2*i, 0],[0, 0.2*i, netHeight]])
+		shortSideNet.append(shortSideVerticalLine)
+	
+	longSideNet = STRUCT(longSideNet)
+	shortSideNet = STRUCT(shortSideNet)
+	oppositeLongSideNet = T([2])(SIZE([2])(tennisField)[0])(longSideNet)
+	oppositeShortSideNet = R([1,2])(PI)(shortSideNet)
+	oppositeShortSideNet = T([1,2])([SIZE([1])(tennisField)[0], SIZE([2])(tennisField)[0]])(oppositeShortSideNet)
+	fieldNet = STRUCT(fieldNet)
+	return STRUCT([tennisField, pillars, longSideNet, shortSideNet, oppositeLongSideNet, oppositeShortSideNet, fieldNet])
+
 def ggpl_suburban_neighborhood():
 	"""This function generates a realistic suburban neighborhood inspired by a 60x45 meters image 
 consisting in streets and houses. The function returns the VIEW of the model generated."""
@@ -85,39 +151,41 @@ consisting in streets and houses. The function returns the VIEW of the model gen
 	streetsWidth = 4
 	curveStreetsWidth = streetsWidth - 0.7
 
-	meterX = CUBOID([0.1,100,1])
-	meterY = CUBOID([100, 0.1,1])
-	meterX = T([1])(15)(meterX)
-	meterY = T([2])(30)(meterY)
-
+	
+	tennisField = generate_tennis_field(8, 6, 5)
+	tennisField = T([1,2])([28,22.5])(tennisField)
+	
 	straightStreet_1 = generate_straight_street(15.5, streetsWidth, streetsHeight, -PI/3.5, -3, 26)
 	straightStreet_2 = generate_straight_street(15, streetsWidth, streetsHeight, -PI/8, 47, 7)
 	straightStreet_3 = generate_straight_street(15, streetsWidth, streetsHeight, 0, 22, 30)
 	straightStreet_4 = generate_straight_street(8, streetsWidth -1, streetsHeight, PI/4, 9.5, 20)
 
-	curveStreet_1 = MAP(BEZIERCURVE([[9.5, 16], [15, 13], [27, 10], [35,11], [41, 12], [45,11], [50, 8.5]]))(INTERVALS(1)(32))
+	curveStreet_1 = MAP(BEZIERCURVE([[9.5, 16], [15, 13], [27, 10], [35,11], [41, 12], [45,11], [50, 9]]))(INTERVALS(1)(32))
 	curveStreet_1 = OFFSET([curveStreetsWidth, curveStreetsWidth])(curveStreet_1)
 	curveStreet_1 = T([1,2])([-3.1,-1.9])(curveStreet_1)
 	curveStreet_1 = PROD([curveStreet_1, Q(streetsHeight)])
 
-	curveStreet_2 = MAP(BEZIERCURVE([[50,8.3], [49,9], [47, 12], [49,18], [47,19], 
+	curveStreet_2 = MAP(BEZIERCURVE([[49,9], [47, 12], [49,18], [47,19], 
 		[47,20],[46,22], [45,24], [44,26],[43,28], [41,31], [39,32.5], [36,32.6]]))(INTERVALS(1)(32))
 	curveStreet_2 = OFFSET([curveStreetsWidth, curveStreetsWidth])(curveStreet_2)
 	curveStreet_2 = T([1,2])([-2,-2])(curveStreet_2)
 	curveStreet_2 = PROD([curveStreet_2, Q(streetsHeight)])
 
-	curveStreet_3 = MAP(BEZIERCURVE([[22,32],[21,31.5], [20,31], [20,30.5]]))(INTERVALS(1)(32))
+	curveStreet_3 = MAP(BEZIERCURVE([[22,32.25],[21,31.5], [20,31], [19.5,30.5]]))(INTERVALS(1)(32))
 	curveStreet_3 = OFFSET([curveStreetsWidth, curveStreetsWidth])(curveStreet_3)
 	curveStreet_3 = T([1,2])([-2,-1.5])(curveStreet_3)
 	curveStreet_3 = PROD([curveStreet_3, Q(streetsHeight)])
 
 	rotary = CYLINDER([5, streetsHeight])(100)
+	rotary_sidewalker = CYLINDER([5.75, streetsHeight/2])(100)
 	rotary_center = CYLINDER([1, streetsHeight])(100)
 	rotary = DIFFERENCE([rotary, rotary_center])
+	rotary_sidewalker = DIFFERENCE([rotary_sidewalker, rotary_center])
 	rotary = T([1,2])([16,29])(rotary)
+	rotary_sidewalker = T([1,2])([16,29])(rotary_sidewalker)
 
 	#generating houses
-	house_1 = generate_house(1, 6,6,6, PI/4, 7,22)
+	house_1 = generate_house(1, 5,6,5, PI/4, 7,22.5)
 	house_2 = generate_house(2, 8,8,8, PI/2.3, 24,14)
 	house_3 = generate_house(2, 8,14,8, PI/2, 43,13)
 	house_4 = generate_house(2, 8,13,8, PI/16, 51,9)
@@ -130,6 +198,7 @@ consisting in streets and houses. The function returns the VIEW of the model gen
 	straightStreet_1_sidewalker = generate_sidewalker(straightStreet_1)
 	straightStreet_2_sidewalker = generate_sidewalker(straightStreet_2)
 	straightStreet_3_sidewalker = generate_sidewalker(straightStreet_3)
+	straightStreet_4_sidewalker = generate_sidewalker(straightStreet_4)
 	curveStreet_1_sidewalker = generate_sidewalker(curveStreet_1)
 	curveStreet_2_sidewalker = generate_sidewalker(curveStreet_2)
 	curveStreet_3_sidewalker = generate_sidewalker(curveStreet_3)
@@ -145,10 +214,10 @@ consisting in streets and houses. The function returns the VIEW of the model gen
 
 	#assembling
 	streets = STRUCT([straightStreet_1, straightStreet_2, straightStreet_3, straightStreet_4, curveStreet_1, curveStreet_2, curveStreet_3, rotary])
-	sidewalkers = STRUCT([straightStreet_1_sidewalker, straightStreet_2_sidewalker, straightStreet_3_sidewalker, curveStreet_1_sidewalker, curveStreet_2_sidewalker, curveStreet_3_sidewalker])
+	sidewalkers = STRUCT([straightStreet_1_sidewalker, straightStreet_2_sidewalker, straightStreet_3_sidewalker, straightStreet_4_sidewalker, curveStreet_1_sidewalker, curveStreet_2_sidewalker, curveStreet_3_sidewalker, rotary_sidewalker])
 	streets = MATERIAL([.1,.1,.1,.2,  0,0,0,1,  0,0,0,1, 0,0,0,1, 10])(streets)
 	houses = STRUCT([house_1, house_2, house_3, house_4, house_5, house_6, house_7, house_8])
-	model = STRUCT([streets, grass, sidewalkers, houses])
+	model = STRUCT([streets, grass, sidewalkers, houses, tennisField])
 	model = T([1,2])([1,1])(model)
 	VIEW(STRUCT([model, base]))
 
