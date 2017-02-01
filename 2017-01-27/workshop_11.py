@@ -61,6 +61,15 @@ def generate_sidewalker(street):
 	rightSidewalker = S([3])([SIZE([3])(street)[0]/2])(rightSidewalker)
 	return STRUCT([leftSidewalker, rightSidewalker])
 
+def generate_walkway(length, width, height, rotation, transX, transY):
+	"""This function has in input 3 dimensions for the walkway size, a rotation to add to it and 
+	2 coordinates transX and transY to return an HPC model of a walkway and place it in front of the house."""
+	walkway = CUBOID([length, width, height])
+	walkway = R([1,2])(rotation)(walkway)
+	walkway = T([1,2])([transX, transY])(walkway)
+	return walkway
+
+
 def generate_house(modelNumber, dx, dy, dz, rotation, transX, transY):
 	"""This function is used to create the HPC model of an house according to the modelNumber in input 
 	(it can be only 1 or 2 as we have only 2 models). The house is scaled to dx x dy x dz dimensions and then 
@@ -119,7 +128,6 @@ def generate_tennis_field(dx, dy, netHeight):
 			shortSideNet.append(shortSideHorizontalLine_1)
 			shortSideNet.append(shortSideHorizontalLine_2)
 		longSideNet.append(longSideHorizontalLine)
-		
 
 	for i in range(0,int((SIZE([1])(tennisField)[0]*10)/2)):
 		longSideVerticalLine = POLYLINE([[0.2*i,0,0],[0.2*i, 0, netHeight]])
@@ -186,13 +194,26 @@ consisting in streets and houses. The function returns the VIEW of the model gen
 
 	#generating houses
 	house_1 = generate_house(1, 5,6,5, PI/4, 7,22.5)
-	house_2 = generate_house(2, 8,8,8, PI/2.3, 24,14)
-	house_3 = generate_house(2, 8,14,8, PI/2, 43,13)
-	house_4 = generate_house(2, 8,13,8, PI/16, 51,9)
+	house_2 = generate_house(2, 8,6.75,8, PI/2.3, 24,14)
+	house_3 = generate_house(2, 8,14,9, PI/2, 43,13)
+	house_4 = generate_house(2, 8,13,8, PI/22, 51,9)
 	house_5 = generate_house(1, 8,8,6, PI/6, 48, 24)
 	house_6 = generate_house(1, 8,8,6, -PI/6, 36.5, 36.5)			
 	house_7 = generate_house(2, 8,14,8, PI/2, 37, 35)
-	house_8 = generate_house(2, 8,8,8, PI/1.35, 16, 36)
+	house_8 = generate_house(2, 8,8,8, PI/1.35, 15, 37)
+
+	#adding walkways
+	walkwayHeight = 0.15
+	house_1_walkway = generate_walkway(3.9,0.75,walkwayHeight, -PI/4, 5,25.6)
+	house_2_walkway = generate_walkway(1.25, 1.25,walkwayHeight, PI/2.3, 20.55,14.5)
+	house_3_walkway = generate_walkway(0.85, 2.2,walkwayHeight, PI/2, 35.65,13)
+	house_4_walkway = generate_walkway(1.5, 2,walkwayHeight, PI/22, 49.5,15.65)
+	house_5_walkway = MAP(BEZIERCURVE([[46, 24], [48.5, 24.5], [48, 26], [46.8, 28]]))(INTERVALS(1)(32))
+	house_5_walkway = OFFSET([1,1])(house_5_walkway)
+	house_5_walkway = PROD([house_5_walkway, Q(walkwayHeight)])
+	house_6_walkway = generate_walkway(5.5,1.2,walkwayHeight, PI/2.9, 37.95,34)
+	house_7_walkway = generate_walkway(1.25,2.3,walkwayHeight, PI/2, 29.7,34.6)
+	house_8_walkway = generate_walkway(1.7,1.5,walkwayHeight, PI/1.35, 12.6,33.6)
 
 	#adding sidewalkers
 	straightStreet_1_sidewalker = generate_sidewalker(straightStreet_1)
@@ -215,9 +236,11 @@ consisting in streets and houses. The function returns the VIEW of the model gen
 	#assembling
 	streets = STRUCT([straightStreet_1, straightStreet_2, straightStreet_3, straightStreet_4, curveStreet_1, curveStreet_2, curveStreet_3, rotary])
 	sidewalkers = STRUCT([straightStreet_1_sidewalker, straightStreet_2_sidewalker, straightStreet_3_sidewalker, straightStreet_4_sidewalker, curveStreet_1_sidewalker, curveStreet_2_sidewalker, curveStreet_3_sidewalker, rotary_sidewalker])
+	sidewalkers = T([3])([0.15])(sidewalkers)
+	walkways = STRUCT([house_1_walkway, house_2_walkway, house_3_walkway, house_4_walkway, house_5_walkway, house_6_walkway, house_7_walkway, house_8_walkway])
 	streets = MATERIAL([.1,.1,.1,.2,  0,0,0,1,  0,0,0,1, 0,0,0,1, 10])(streets)
 	houses = STRUCT([house_1, house_2, house_3, house_4, house_5, house_6, house_7, house_8])
-	model = STRUCT([streets, grass, sidewalkers, houses, tennisField])
+	model = STRUCT([streets, grass, sidewalkers, houses, tennisField, walkways])
 	model = T([1,2])([1,1])(model)
 	VIEW(STRUCT([model, base]))
 

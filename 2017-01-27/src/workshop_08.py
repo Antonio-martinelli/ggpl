@@ -151,7 +151,8 @@ def ggpl_building_house(lines, windowsFunction, doorsFunction, ladderBuilder, fl
 	windows = T(3)(SIZE([3])(externalWalls)[0]/4.)(windows)
 	
 	externalWalls = DIFFERENCE([externalWalls, doors, windows])
-	internalWalls = DIFFERENCE([internalWalls, externalWalls, doors, windows])
+	#internalWalls = DIFFERENCE([internalWalls, externalWalls, doors, windows])		//difference between internal and external is heavy for computation
+	internalWalls = DIFFERENCE([internalWalls, doors, windows])
 	externalWalls = TEXTURE(texture)(externalWalls)
 	internalWalls = TEXTURE("textures/interiors.jpg")(internalWalls)
 	frame = STRUCT([externalWalls, internalWalls])
